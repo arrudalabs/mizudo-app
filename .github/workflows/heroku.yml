@@ -1,0 +1,42 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Heroku Auto Deployment
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+
+      - name: Heroku Auto Deployment
+        # You may pin to the exact commit or the version.
+        # uses: ElayGelbart/Heroku-Auto-Deployment@714f7d7da9749f34ce2771c8ea1d665c9130509c
+        uses: ElayGelbart/Heroku-Auto-Deployment@v1.0.7
+        with:
+          # Name of the heroku application to which the build is to be sent.
+          herokuAppName: mizudo-app
+          # Heroku API key
+          herokuApiKey: ${{ secrets.HEROKU_API_KEY }}
+          # Selected branch to deployment
+          # useDocker: # optional, default is 
+          # Selected branch to deployment
+          branch: main # optional, default is HEAD
+          # Selected Application Dir
+          # dir: '' # optional, default is 
