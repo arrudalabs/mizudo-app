@@ -1,8 +1,5 @@
 # Mizudo-app
 Aplicação para gerenciamento de membros da associação Mizu-do de Karatê.
-
-## Objetivo
-  Ajudar na organização da associação de Karatê "Mizu-do" de acordo com os casos de uso;
   
 ## Tecnologias utilizadas:
  - Java 18
