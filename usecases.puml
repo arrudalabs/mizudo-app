@@ -1,6 +1,7 @@
 @startuml
 actor Usuario as us
 actor "Usuario 2" as us2
+actor "Usuario 3" as us3
 
 usecase "Adicionar Perfil" as ai
 usecase "Editar Perfil" as ae
@@ -9,5 +10,7 @@ us --> ai
 us2 --> ae 
 
 us2 <|-- us
+
+us <|-- us3
 
 @enduml
