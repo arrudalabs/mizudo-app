@@ -1,0 +1,13 @@
+@startuml
+actor Usuario as us
+actor "Usuario 2" as us2
+
+usecase "Adicionar Perfil" as ai
+usecase "Editar Perfil" as ae
+
+us --> ai
+us2 --> ae 
+
+us2 <|-- us
+
+@enduml
