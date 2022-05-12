@@ -35,8 +35,8 @@ jobs:
           # Heroku API key
           herokuApiKey: ${{ secrets.HEROKU_API_KEY }}
           # Selected branch to deployment
-          useDocker: false # optional, default is 
+          useDocker: '' # optional, default is 
           # Selected branch to deployment
           branch: main # optional, default is HEAD
           # Selected Application Dir
-          # dir: '' # optional, default is 
+          dir: '' # optional, default is 
