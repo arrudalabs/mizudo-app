@@ -1,16 +1,70 @@
 @startuml
-actor Usuario as us
-actor "Usuario 2" as us2
-actor "Usuario 3" as us3
 
-usecase "Adicionar Perfil" as ai
-usecase "Editar Perfil" as ae
+left to right direction
+actor Administrator as admin
+actor Coordinator as cood
+actor Instructor as inst
+actor Examinator as ex
+actor Student as st
 
-us --> ai
-us2 --> ae 
+st <|-- inst
+inst <|-- cood
+ex <|-- cood
+cood <|-- admin
 
-us2 <|-- us
 
-us <|-- us3
+rectangle "Profile" {
+    usecase "Profile view" as pView
+    usecase "Profile update" as pUpdate
+    usecase "Password Change" as pChange
+}
+
+rectangle "Members" {
+    usecase "Member registration" as mr
+    usecase "Member update" as mu
+    usecase "Member promotion" as mPromo
+    usecase "Member password reset" as mPReset
+}
+
+rectangle "Classes absence" {
+    usecase "Absence regitration" as aReg
+    usecase "Absence removal" as aRemoval
+}
+
+rectangle "Classes" {
+    usecase "Class registration" as cReg
+    usecase "Class update" as cUpdate
+    usecase "Class removal" as cRemoval
+    usecase "Classes list" as cList
+}
+
+rectangle "Exams" {
+    usecase "Exam creation" as exCreation
+    usecase "Exam update" as exUpdate
+    usecase "Exam completion" as exCompletion
+    usecase "Exam result registration" as exResults
+}
+
+st --> cList
+st --> pView
+st --> pUpdate
+st --> pChange
+
+inst --> mr
+inst --> mu
+inst --> aReg
+inst --> aRemoval
+
+ex --> exResults
+
+cood --> mPReset
+cood --> mPromo
+cood --> cReg
+cood --> cRemoval
+cood --> exCreation
+cood --> exUpdate
+cood --> exCompletion
+
+
 
 @enduml
