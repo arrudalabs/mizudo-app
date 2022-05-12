@@ -24,6 +24,10 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
+          
+      - name: Build
+        run: |
+          ./mvnw clean verify -B
 
       - name: Heroku Auto Deployment
         uses: ElayGelbart/Heroku-Auto-Deployment@v1.0.6
