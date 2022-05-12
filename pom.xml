@@ -182,6 +182,7 @@
                   Install node and yarn
                 -->
                 <id>01 - install-node-and-yarn</id>
+                <phase>generate-resources</phase>
                 <goals>
                   <goal>install-node-and-yarn</goal>
                 </goals>
@@ -195,6 +196,7 @@
                   Install the front-end dependencies
                 -->
                 <id>02 - yarn install</id>
+                <phase>generate-resources</phase>
                 <goals>
                   <goal>yarn</goal>
                 </goals>
@@ -207,6 +209,7 @@
                   Build the UI
                 -->
                 <id>03 - yarn run build</id>
+                <phase>generate-resources</phase>
                 <goals>
                   <goal>yarn</goal>
                 </goals>
