@@ -26,17 +26,9 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Heroku Auto Deployment
-        # You may pin to the exact commit or the version.
-        # uses: ElayGelbart/Heroku-Auto-Deployment@714f7d7da9749f34ce2771c8ea1d665c9130509c
-        uses: ElayGelbart/Heroku-Auto-Deployment@v1.0.7
+        uses: ElayGelbart/Heroku-Auto-Deployment@v1.0.6
         with:
-          # Name of the heroku application to which the build is to be sent.
           herokuAppName: mizudo-app
-          # Heroku API key
           herokuApiKey: ${{ secrets.HEROKU_API_KEY }}
           # Selected branch to deployment
-          useDocker: '' # optional, default is 
-          # Selected branch to deployment
-          branch: main # optional, default is HEAD
-          # Selected Application Dir
-          dir: '' # optional, default is 
+          branch: main 
