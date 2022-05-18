@@ -1,7 +1,7 @@
 {
   "name": "mizudo-app",
   "short_name": "mizudo-app",
-  "theme_color": "#1976d2",
+  "theme_color": "#eb445a",
   "background_color": "#fafafa",
   "display": "standalone",
   "scope": "./",
