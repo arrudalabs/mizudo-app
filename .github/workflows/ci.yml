@@ -29,8 +29,23 @@ jobs:
         with:
           java-version: 17
           distribution: adopt
-      - name: Cache dependencies
-        uses: actions/cache@v3.0.2
+          
+      - name: Cache local Maven repository
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+            
+      - name: Cache local NPM 
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+            
       - name: Build
         run: |
           ./mvnw clean verify -B
