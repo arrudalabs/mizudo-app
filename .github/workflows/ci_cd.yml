@@ -48,12 +48,12 @@ jobs:
             ${{ runner.os }}-node-
             
       - name: Build
-        if: "!contains(github.event.head_commit.message, 'SKIP_CI')"
+        if: ${{ !contains(github.event.head_commit.message, 'SKIP_CI') }}
         run: |
           ./mvnw clean verify -B
 
       - name: Heroku Auto Deployment
-        if: "!contains(github.event.head_commit.message, 'SKIP_CI') && !contains(github.event.head_commit.message, 'SKIP_CD')"
+        if: ${{ !contains(github.event.head_commit.message, 'SKIP_CI') && !contains(github.event.head_commit.message, 'SKIP_CD') }}
         uses: ElayGelbart/Heroku-Auto-Deployment@v1.0.6
         with:
           herokuAppName: mizudo-app
