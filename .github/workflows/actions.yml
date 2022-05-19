@@ -49,7 +49,7 @@ jobs:
             
       - name: Build
         run: |
-          ./mvnw clean verify -B
+          ./mvnw clean verify -B -DskipTestsUI=false
 
       - name: Heroku Auto Deployment
         if: ${{ !contains(github.event.head_commit.message, 'SKIP_CD') }}
