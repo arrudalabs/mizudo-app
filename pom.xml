@@ -180,6 +180,9 @@
       <activation>
         <activeByDefault>true</activeByDefault>
       </activation>
+      <properties>
+        <skipTestsUI>true</skipTestsUI>
+      </properties>
       <build>
         <plugins>
           <plugin>
@@ -216,6 +219,17 @@
                 </goals>
                 <configuration>
                   <arguments>run build --output-hashing=all --aot --configuration=production</arguments>
+                </configuration>
+              </execution>
+              <execution>
+                <id>04 - yarn run test</id>
+                <phase>generate-resources</phase>
+                <goals>
+                  <goal>yarn</goal>
+                </goals>
+                <configuration>
+                  <skip>${skipTestsUI}</skip>
+                  <arguments>run test:ci</arguments>
                 </configuration>
               </execution>
             </executions>
