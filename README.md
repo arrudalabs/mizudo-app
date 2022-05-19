@@ -8,7 +8,7 @@ Aplicação para gerenciamento de membros da associação Mizu-do de Karatê.
   - Autenticação com JWT
   - JPA
  - Angular 13
- - *Ionic v6 (em estudos)  
+ - Ionic v6  
  - PostgreSQL
 
 ## Hospedagem
