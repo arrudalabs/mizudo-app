@@ -17,7 +17,7 @@ on:
 jobs:
   # This workflow contains a single job called "build"
   build-and-deploy:
-    if: ${{ (!contains(github.event.head_commit.message, 'SKIP_ALL') || !contains(github.event.head_commit.message, 'SKIP_CICD')) || ( true == (!contains(github.event.head_commit.message, 'SKIP_CI') || !contains(github.event.head_commit.message, 'SKIP_CD'))) }}
+    if: ${{ (!contains(github.event.head_commit.message, 'SKIP_ALL') || !contains(github.event.head_commit.message, 'SKIP_CI') || !contains(github.event.head_commit.message, 'SKIP_CICD')) }}
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
