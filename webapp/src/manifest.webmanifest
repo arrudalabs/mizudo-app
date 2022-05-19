@@ -3,7 +3,7 @@
   "short_name": "Mizudo-app",
   "theme_color": "#eb445a",
   "background_color": "#fafafa",
-  "display": "fullscreen",
+  "display": "minimal-ui",
   "scope": "./",
   "start_url": "./",
   "icons": [
