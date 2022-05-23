@@ -1,0 +1,29 @@
+@startuml
+!include https://raw.githubusercontent.com/adrianvlupu/C4-PlantUML/latest/C4_Component.puml
+
+LAYOUT_WITH_LEGEND()
+
+Container(spa, "Single Page Application", "javascript and Angular", "Provides all the Mizu-do System functionality to customers via their web browser.")
+Container(ma, "Mobile App", "PWA", "Provides all the Mizu-do System to customers via their mobile device.")
+Container(db, "Database", "Relational Database Schema", "Stores user registration information, hashed authentication credentials, access logs, etc.")
+
+Container_Boundary(api, "API Application") {
+    Component(tokenResource, "Token Resource", "JAX-RS Resource", "Allows users to authenticate in to the Mizu-do system providing a JWT token")
+    Component(securityService, "Security Service", "CDI Bean", "Provides functionality related to singing in, changing passwords, etc.")
+    Component(profileResource, "Profile Resource", "JAX-RS Resource", "Allows users to manage their profile data")
+    Component(profileService, "Profile Service", "CDI Bean", "Uses the model to manage the user profile data")
+
+    Rel(tokenResource, securityService, "Uses")
+    Rel(profileResource, securityService, "Uses")
+    Rel(profileResource, profileService, "Uses")
+    Rel(profileService, db, "Read & write to", "JPA/JDBC")
+    Rel(securityService, db, "Read & write to", "JPA/JDBC")
+}
+
+Rel(spa, tokenResource, "Uses", "JSON/HTTPS")
+Rel(ma, tokenResource, "Uses", "JSON/HTTPS")
+
+Rel(spa, profileResource, "Uses", "JSON/HTTPS")
+Rel(ma, profileResource, "Uses", "JSON/HTTPS")
+
+@enduml

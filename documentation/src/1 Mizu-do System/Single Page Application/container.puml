@@ -1,0 +1,27 @@
+@startuml
+!include https://raw.githubusercontent.com/adrianvlupu/C4-PlantUML/latest/C4_Component.puml
+
+LAYOUT_WITH_LEGEND()
+
+Container(api, "API Application", "Java and Quarkus", "Delivers the static content and the Mizu-do SPA.")
+
+Container_Boundary(spa, "Single Page Application") {
+    Component(routing, "Routing", "Angular Router", "Handler client side routing")
+    Component(loginForm, "Login form", "Angular Component", "The loginForm page")
+    Component(profilePage, "Profile Page", "Angular Component", "The page where the logged in user can view and edit his/her information")
+    Component(authGuard, "Auth Guard", "Angular Guard", "Controls the authentication access")
+    Component(storeService, "Store Service", "Angular Service", "The central object holding the application state")
+
+    Rel(routing, authGuard, "Uses");
+    Rel(authGuard, storeService, "Uses");
+    Rel(loginForm, storeService, "Uses");
+    Rel(profilePage, storeService, "Uses");
+
+    Rel(routing, loginForm, "Redirect to");
+    Rel(routing, profilePage, "Redirect to");
+
+}
+
+Rel(spa, api, "Uses", "JSON/HTTPS")
+
+@enduml

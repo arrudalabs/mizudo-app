@@ -1,0 +1,18 @@
+@startuml
+!include https://raw.githubusercontent.com/adrianvlupu/C4-PlantUML/latest/C4_Context.puml
+
+' LAYOUT_WITH_LEGEND()
+
+Person(Coordinator, "Coordinator", "Can do everything in the application")
+Person(Instructor, "Instructor", "Can register new students to classes, manage students infomation, register student absences")
+Person(Student, "Student", "Can access their classes and manage them information")
+Person(Examiner, "Examiner", "Can see the exams that they're enrolled and add the exam results")
+
+System(mizudoapp, "Mizu-do System", "Allows customers to manage the Mizu-do information")
+
+Rel(Coordinator, mizudoapp, "Uses")
+Rel(Instructor, mizudoapp, "Uses")
+Rel(Student, mizudoapp, "Uses")
+Rel(Examiner, mizudoapp, "Uses")
+
+@enduml

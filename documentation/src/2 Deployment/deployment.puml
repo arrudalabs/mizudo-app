@@ -1,0 +1,36 @@
+@startuml
+!include https://raw.githubusercontent.com/adrianvlupu/C4-PlantUML/latest/C4_Deployment.puml
+
+LAYOUT_WITH_LEGEND()
+
+Deployment_Node(mob, "User's mobile device", "Apple IOS or Android"){
+    Container(mobile, "Mobile App", "PWA", "Provides the Mizu-do System functionality to Users via their PWA.")
+}
+
+Deployment_Node(comp, "User's computer", "Windows/Linux/MacOS"){
+    Deployment_Node(browser, "Web Browser", "Google Chrome, Mozilla Firefox, MS Edge, Safari, etc."){
+        Container(spa, "Single Page Application", "JavaScript and Angular", "Provides the Mizu-do System functionality to Users via their web browser.")
+    }
+}
+
+Deployment_Node(heroku, "Heroku", "Heroku data center"){
+
+    Deployment_Node(application, "Quarkus", "Monolith Application"){
+        Container(api, "API", "Java and Quarkus", "Provides Mizu-do System functionality via a JSON/HTTPS API.")
+        Container(web, "Web Application", "Angular", "Delivers the static content and the Mizu-do single page application.")
+    }
+
+    Deployment_Node(postgresql, "PostgreSQL", "Add-on"){
+        ContainerDb(db, "Database", "Relational Database Schema", "Stores user registration information, hashed authentication credentials, access logs, etc.")
+    }
+}
+
+
+
+Rel(web, mobile, "Delivers to the User's PWA assets")
+Rel(web, spa, "Delivers to the User's web browser")
+Rel(mobile, api, "Makes API calls to", "json/HTTPS")
+Rel(spa, api, "Makes API calls to", "json/HTTPS")
+Rel(api, db, "Reads from and writes to", "JPA/JDBC")
+
+@enduml

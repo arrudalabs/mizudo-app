@@ -1,0 +1,23 @@
+@startuml
+!include https://raw.githubusercontent.com/adrianvlupu/C4-PlantUML/latest/C4_Container.puml
+
+LAYOUT_WITH_LEGEND()
+
+Person(user, "Mizu-do User", "An user of the Mizu-do System.")
+System_Boundary(mizudoSystem, "Mizu-do System") {
+    Container(spa, "Single Page Application", "javascript and Angular", "Provides all the Mizu-do System functionality to users via their web browser.")
+    Container(wa, "Web Application", "javascript and Angular", "Delivers the static content and the Mizu-do system SPA.")
+    Container(ma, "Mobile App", "PWA", "Provides all of the Mizu-do System functionality to users via their mobile device.")
+    Container(db, "Database", "Relational Database Schema", "Stores user registration information, hashed authentication credentials, access logs, etc.")
+    Container(api, "API Application", "Java with Quarkus", "Provides all the Mizu-do System functionality via a JSON/HTTP API.")
+
+    Rel(api, db, "Reads & writes to", "JPA/JDBC")
+    Rel(wa, spa, "Delivers")
+    Rel(wa, ma, "Delivers")
+    Rel(spa, api, "Uses", "JSON/HTTPS")
+    Rel(ma, api, "Uses", "JSON/HTTPS")
+}
+
+Rel(user, spa, "Uses", "HTTPS")
+Rel(user, ma, "Uses" , "HTTPS")
+@enduml
