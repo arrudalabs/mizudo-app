@@ -27,6 +27,7 @@ jobs:
         uses: clippings/c4builder-action@v1
         with:
           config_path: 'documentation'
+          path: 'documentation'
       
       - name: Generated assets 
         run: |
