@@ -1,4 +1,4 @@
-package org.acme;
+package io.github.arrudalabs.mizudo.services;
 
 import io.smallrye.jwt.build.Jwt;
 import io.smallrye.jwt.build.JwtClaimsBuilder;
@@ -20,7 +20,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @ApplicationScoped
-public class JwtTokenBuilder {
+public class JwtTokenService {
 
     private final String privateKeyId = UUID.randomUUID().toString();
 
