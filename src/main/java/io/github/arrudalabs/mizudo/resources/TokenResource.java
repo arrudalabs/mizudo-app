@@ -4,7 +4,7 @@ import io.github.arrudalabs.mizudo.services.Credentials;
 import io.github.arrudalabs.mizudo.services.SecurityService;
 import io.github.arrudalabs.mizudo.services.Token;
 
-import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -12,15 +12,14 @@ import javax.ws.rs.core.Response;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 
-@ApplicationScoped
-@Path("/")
+@RequestScoped
+@Path("token")
 public class TokenResource {
 
     @Inject
-    SecurityService securityService;
+    private SecurityService securityService;
 
     @POST
-    @Path("token")
     @Consumes({MediaType.APPLICATION_FORM_URLENCODED})
     @Produces()
     public Token generateToken(@FormParam("username")

@@ -3,20 +3,17 @@ package io.github.arrudalabs.mizudo.services;
 import io.github.arrudalabs.mizudo.BaseTest;
 import io.github.arrudalabs.mizudo.entities.User;
 import io.quarkus.test.junit.QuarkusTest;
-import io.quarkus.test.junit.mockito.InjectMock;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 import javax.inject.Inject;
-import java.nio.charset.StandardCharsets;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.util.Optional;
 
-import static org.hamcrest.MatcherAssert.*;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 
 @QuarkusTest
@@ -25,12 +22,12 @@ public class SecurityServiceTest extends BaseTest {
     @Inject
     SecurityService securityService;
 
-    @InjectMock
+    @Inject
     PasswordService passwordService;
 
     @Test
     @DisplayName("given a valid username/password then should return a token")
-    void test01() throws NoSuchAlgorithmException, InvalidKeySpecException {
+    void testAuthWithValidCredentials() throws NoSuchAlgorithmException, InvalidKeySpecException {
         Credentials credentials = createValidUsernameAndPassword();
         Optional<Token> token = securityService.auth(credentials);
         assertThat(token, notNullValue());
@@ -41,7 +38,7 @@ public class SecurityServiceTest extends BaseTest {
 
     @Test
     @DisplayName("given a invalid username/password then cannot return a token instance")
-    void test02() throws NoSuchAlgorithmException, InvalidKeySpecException {
+    void testAuthWithInvalidCredentials() throws NoSuchAlgorithmException, InvalidKeySpecException {
         createValidUsernameAndPassword();
         Credentials invalidCredentials = new Credentials(faker.internet().emailAddress(),faker.internet().password());
         Optional<Token> token = securityService.auth(invalidCredentials);
@@ -57,22 +54,6 @@ public class SecurityServiceTest extends BaseTest {
     @BeforeEach
     public void setup() {
         this.execute(User::deleteAllUsers);
-        Mockito.when(passwordService.newPassword(Mockito.any(String.class)))
-                .thenAnswer((args) -> {
-                    var rawPassword = args.getArgument(0, String.class);
-                    return new GeneratedPassword(
-                            rawPassword.getBytes(StandardCharsets.UTF_8),
-                            rawPassword.getBytes(StandardCharsets.UTF_8)
-                    );
-                });
-        Mockito.when(passwordService.passwordFrom(Mockito.any(byte[].class),Mockito.any(String.class)))
-                .thenAnswer((args) -> {
-                    var rawPassword = args.getArgument(1, String.class);
-                    return new GeneratedPassword(
-                            rawPassword.getBytes(StandardCharsets.UTF_8),
-                            rawPassword.getBytes(StandardCharsets.UTF_8)
-                    );
-                });
     }
 
     @AfterEach
