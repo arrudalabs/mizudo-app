@@ -8,16 +8,17 @@ Container(ma, "Mobile App", "PWA", "Provides all the Mizu-do System to customers
 Container(db, "Database", "Relational Database Schema", "Stores user registration information, hashed authentication credentials, access logs, etc.")
 
 Container_Boundary(api, "API Application") {
-    Component(tokenResource, "Token Resource", "JAX-RS Resource", "Allows users to authenticate in to the Mizu-do system providing a JWT token")
-    Component(securityService, "Security Service", "CDI Bean", "Provides functionality related to singing in, changing passwords, etc.")
-    Component(profileResource, "Profile Resource", "JAX-RS Resource", "Allows users to manage their profile data")
-    Component(profileService, "Profile Service", "CDI Bean", "Uses the model to manage the user profile data")
+    Component(tokenResource, "TokenResource", "JAX-RS Resource", "Allows users to authenticate in to the Mizu-do system providing a JWT token")
+    Component(securityService, "SecurityService", "CDI Bean", "Provides functionality related to singing in, changing passwords, etc.")
+    Component(JwtTokenService, "JwtTokenService", "CDI Bean", "Generates JWT tokens")
+    Component(passwordService, "PasswordService", "CDI Bean", "Generates the password hashing.")
 
+    Component(profileResource, "ProfileResource", "JAX-RS Resource", "Allows users to manage their profile data")
+    
     Rel(tokenResource, securityService, "Uses")
-    Rel(profileResource, securityService, "Uses")
-    Rel(profileResource, profileService, "Uses")
-    Rel(profileService, db, "Read & write to", "JPA/JDBC")
     Rel(securityService, db, "Read & write to", "JPA/JDBC")
+    Rel(securityService, JwtTokenService, "Read & write to", "JPA/JDBC")
+    Rel(securityService, passwordService, "Read & write to", "JPA/JDBC")
 }
 
 Rel(spa, tokenResource, "Uses", "JSON/HTTPS")
