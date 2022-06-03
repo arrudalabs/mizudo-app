@@ -1,5 +1,12 @@
 # Mizudo-app
 Aplicação para gerenciamento de membros da associação Mizu-do de Karatê.
+
+Aqui a playlist no Youtube onde estamos desenvolvendo o projeto:
+
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=eHrogm7-vsA&list=PLkN-PjC-cnJdad9OYRrRJBUnKedOSxbG1" target="_blank"><img src="https://img.youtube.com/vi/eHrogm7-vsA/0.jpg" width="240" height="180" border="10" /></a>
+
+
+<a href="https://www.youtube.com/watch?v=eHrogm7-vsA&list=PLkN-PjC-cnJdad9OYRrRJBUnKedOSxbG1" target="_blank">https://www.youtube.com/watch?v=eHrogm7-vsA&list=PLkN-PjC-cnJdad9OYRrRJBUnKedOSxbG1</a>
   
 ## Tecnologias utilizadas:
  - Java 17
