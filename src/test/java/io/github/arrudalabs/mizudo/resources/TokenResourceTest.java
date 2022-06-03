@@ -25,11 +25,15 @@ public class TokenResourceTest extends BaseTest {
     @Inject
     PasswordService passwordService;
 
+    Map<String, String> inputs = Map.of(
+            "username", this.faker.internet().emailAddress(),
+            "password", this.faker.internet().password());
+
     @BeforeEach
     void createAdminUser() {
         this.execute(() -> {
             User.deleteAllUsers();
-            User.createUser("admin", passwordService.newPassword("admin")).persist();
+            User.createUser(inputs.get("username"),passwordService.newPassword(inputs.get("password"))).persist();
         });
     }
 
@@ -46,9 +50,7 @@ public class TokenResourceTest extends BaseTest {
                 .log().ifValidationFails()
                 .contentType(ContentType.URLENC)
                 .accept(ContentType.JSON)
-                .params(Map.of(
-                        "username", "admin",
-                        "password", "admin"))
+                .params(inputs)
                 .post("/resources/token")
                 .then()
                 .log().ifValidationFails()

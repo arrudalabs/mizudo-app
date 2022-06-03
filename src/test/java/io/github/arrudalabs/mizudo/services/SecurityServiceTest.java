@@ -3,6 +3,7 @@ package io.github.arrudalabs.mizudo.services;
 import io.github.arrudalabs.mizudo.BaseTest;
 import io.github.arrudalabs.mizudo.entities.User;
 import io.quarkus.test.junit.QuarkusTest;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -45,6 +46,27 @@ public class SecurityServiceTest extends BaseTest {
         assertThat(token, notNullValue());
         assertThat(token.isEmpty(),is(true));
     }
+
+
+    @Test
+    @DisplayName("given a valid admin credentials then should return a token")
+    void testAuthWithValidAdminCredentials() throws NoSuchAlgorithmException, InvalidKeySpecException {
+        Credentials credentials = createValidAdminCredentials();
+        Optional<Token> token = securityService.auth(credentials);
+        assertThat("must return a non nullable Optional<Token> reference",token, notNullValue());
+        assertThat("provided Optional<Token> must have a valid reference",token.isPresent(),is(true));
+        token.ifPresent(this::validateToken);
+
+    }
+
+    @Inject
+    @ConfigProperty(name = "admin.password", defaultValue = "shoto")
+    String adminPassword;
+
+    private Credentials createValidAdminCredentials() {
+        return new Credentials("admin", this.adminPassword);
+    }
+
 
     private void validateToken(Token token) {
         assertThat(token.access_token(), not(emptyOrNullString()));
