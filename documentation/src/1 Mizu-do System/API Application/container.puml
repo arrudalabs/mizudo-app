@@ -17,8 +17,8 @@ Container_Boundary(api, "API Application") {
     
     Rel(tokenResource, securityService, "Uses")
     Rel(securityService, db, "Read & write to", "JPA/JDBC")
-    Rel(securityService, JwtTokenService, "Read & write to", "JPA/JDBC")
-    Rel(securityService, passwordService, "Read & write to", "JPA/JDBC")
+    Rel(securityService, JwtTokenService, "Uses")
+    Rel(securityService, passwordService, "Uses")
 }
 
 Rel(spa, tokenResource, "Uses", "JSON/HTTPS")

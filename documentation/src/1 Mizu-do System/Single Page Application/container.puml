@@ -10,18 +10,20 @@ Container_Boundary(spa, "Single Page Application") {
     Component(loginForm, "Login form", "Angular Component", "The loginForm page")
     Component(profilePage, "Profile Page", "Angular Component", "The page where the logged in user can view and edit his/her information")
     Component(authGuard, "Auth Guard", "Angular Guard", "Controls the authentication access")
-    Component(storeService, "Store Service", "Angular Service", "The central object holding the application state")
+    Component(sessionService, "SessionService", "Angular Service", "The central object holding the application state")
+    Component(mizudoService, "MizudoService", "Angular Service", "The central object responsible for performing API requests")
+
 
     Rel(routing, authGuard, "Uses");
-    Rel(authGuard, storeService, "Uses");
-    Rel(loginForm, storeService, "Uses");
-    Rel(profilePage, storeService, "Uses");
+    Rel(authGuard, sessionService, "Uses");
+    Rel(loginForm, sessionService, "Uses");
+    Rel(profilePage, sessionService, "Uses");
 
     Rel(routing, loginForm, "Redirect to");
     Rel(routing, profilePage, "Redirect to");
 
 }
 
-Rel(spa, api, "Uses", "JSON/HTTPS")
+Rel(mizudoService, api, "Uses", "JSON/HTTPS")
 
 @enduml
