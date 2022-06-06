@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-toolbar color="danger">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="toolbar-title">Mizu-do</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content padding>
+  <ion-list *ngIf="!profile" lines="none">
+    <ion-spinner></ion-spinner>
+  </ion-list>
+  <ion-list *ngIf="profile" lines="none">
+    <!-- Default Spinner -->
+    <ion-spinner *ngIf="!profile"></ion-spinner>
+    <ion-item>Hi {{ username }}</ion-item>
+  </ion-list>
+</ion-content>
