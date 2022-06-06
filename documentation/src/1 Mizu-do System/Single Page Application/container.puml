@@ -7,9 +7,9 @@ Container(api, "API Application", "Java and Quarkus", "Delivers the static conte
 
 Container_Boundary(spa, "Single Page Application") {
     Component(routing, "Routing", "Angular Router", "Handler client side routing")
-    Component(loginForm, "Login form", "Angular Component", "The loginForm page")
-    Component(profilePage, "Profile Page", "Angular Component", "The page where the logged in user can view and edit his/her information")
-    Component(authGuard, "Auth Guard", "Angular Guard", "Controls the authentication access")
+    Component(loginForm, "LoginComponent", "Angular Component", "The login form component")
+    Component(profilePage, "ProfileComponent", "Angular Component", "The component where the logged in user can view and edit his/her information")
+    Component(authGuard, "AuthGuard", "Angular Guard", "Controls the authentication access")
     Component(sessionService, "SessionService", "Angular Service", "The central object holding the application state")
     Component(mizudoService, "MizudoService", "Angular Service", "The central object responsible for performing API requests")
 
@@ -21,6 +21,8 @@ Container_Boundary(spa, "Single Page Application") {
 
     Rel(routing, loginForm, "Redirect to");
     Rel(routing, profilePage, "Redirect to");
+
+    Rel(sessionService,mizudoService, "Uses");
 
 }
 
