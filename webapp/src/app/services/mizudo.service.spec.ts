@@ -9,6 +9,7 @@ import { environment } from './../../environments/environment';
 import { MizudoService } from './mizudo.service';
 import { HttpParams } from '@angular/common/http';
 import { Profile } from '../model/Profile';
+import { newFakeToken } from '../model/FakeToken';
 
 describe('MizudoService', () => {
   let service: MizudoService;
@@ -53,10 +54,7 @@ describe('MizudoService', () => {
     );
     expect(req.request.headers.get('Accept')).toBe('application/json');
 
-    const expectedToken: Token = {
-      access_token: '23kj4n23kj4n32',
-      expires_in: 300,
-    };
+    const expectedToken: Token = newFakeToken(60) ;
 
     req.flush(expectedToken);
 

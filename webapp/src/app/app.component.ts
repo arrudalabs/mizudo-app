@@ -13,7 +13,6 @@ import { SessionService } from './services/session.service';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  title = 'mizudo-app';
 
   constructor(
     private menu: MenuController,

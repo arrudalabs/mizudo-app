@@ -19,13 +19,13 @@ import { decodeJwt } from 'jose';
 })
 export class SessionService {
 
-  static TOKEN_KEY = 'mizudoToken';
+  public static TOKEN_KEY = 'mizudoToken';
 
   private _token = new BehaviorSubject<Token | null>(null);
 
   private activeAutoLogoutTimer: any;
 
-  constructor(private mizudoService: MizudoService) {}
+  constructor(private mizudoService: MizudoService, private storage:Storage) {}
 
   getToken(): Observable<Token | null> {
     return this._token.asObservable();
@@ -47,8 +47,8 @@ export class SessionService {
     );
   }
 
-  storeToken(token: Token) {
-    localStorage.setItem(SessionService.TOKEN_KEY, JSON.stringify(token));
+  private storeToken(token: Token) {
+    this.storage.setItem(SessionService.TOKEN_KEY, JSON.stringify(token));
     const durationInSeconds = token.expires_in;
     this.defineTokenAndAutoLogout(durationInSeconds, token);
   }
@@ -58,7 +58,7 @@ export class SessionService {
     this._token.next(token);
   }
 
-  autologout(durationIsSeconds: number) {
+  private autologout(durationIsSeconds: number) {
     this.destroyAutoLogoutTimeout();
     console.log(`auto-logout in ${durationIsSeconds} second(s)`);
     this.activeAutoLogoutTimer = setTimeout(async () => {
@@ -75,7 +75,7 @@ export class SessionService {
   }
 
   autologin(): Observable<boolean> {
-    const storedData = localStorage.getItem(SessionService.TOKEN_KEY);
+    const storedData = this.storage.getItem(SessionService.TOKEN_KEY);
 
     if (!storedData) {
       return of(false);
@@ -102,7 +102,7 @@ export class SessionService {
   }
 
   async logOut() {
-    localStorage.removeItem(SessionService.TOKEN_KEY);
+    this.storage.removeItem(SessionService.TOKEN_KEY);
     this.destroyAutoLogoutTimeout();
     this._token.next(null);
   }

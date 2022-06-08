@@ -13,11 +13,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    LoginComponent,
-    ProfileComponent
-  ],
+  declarations: [AppComponent, LoginComponent, ProfileComponent],
   imports: [
     BrowserModule,
     HttpClientModule,
@@ -27,11 +23,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
       enabled: environment.production,
       // Register the ServiceWorker as soon as the application is stable
       // or after 30 seconds (whichever comes first).
-      registrationStrategy: 'registerWhenStable:30000'
+      registrationStrategy: 'registerWhenStable:30000',
     }),
-    IonicModule.forRoot()
+    IonicModule.forRoot(),
   ],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
-  bootstrap: [AppComponent]
+  providers: [
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    { provide: Storage, useValue: localStorage },
+  ],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
