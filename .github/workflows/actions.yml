@@ -46,17 +46,14 @@ jobs:
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
-            
-      - name: Build Font-end
-        run: |
-          ./mvnw clean verify -B -DskipTests -DskipTestsUI=false
 
       - name: Build Back-end
         run: |
-          echo "pull.pause.timeout=60" >> .testcontainers.properties
-          echo "client.ping.timeout=10" >> .testcontainers.properties
-          ./mvnw clean verify -B -Pnone
-
+          ./mvnw clean verify -B -X -e -Pnone
+      
+      - name: Build Font-end
+        run: |
+          ./mvnw clean verify -B -DskipTests -DskipTestsUI=false
 
       - name: Heroku Auto Deployment
         if: ${{ !contains(github.event.head_commit.message, 'SKIP_CD') }}
