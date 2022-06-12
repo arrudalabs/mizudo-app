@@ -15,8 +15,8 @@ import { Token } from 'src/app/model/Token';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-  username = new FormControl('admin', [Validators.required]);
-  password = new FormControl('shoto', [Validators.required]);
+  username = new FormControl('', [Validators.required]);
+  password = new FormControl('', [Validators.required]);
 
   loginForm: FormGroup = new FormGroup({
     username: this.username,
