@@ -53,6 +53,8 @@ jobs:
 
       - name: Build Back-end
         run: |
+          echo "pull.pause.timeout=60" >> .testcontainers.properties
+          echo "client.ping.timeout=10" >> .testcontainers.properties
           ./mvnw clean verify -B -Pnone
 
 
