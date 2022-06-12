@@ -47,9 +47,14 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
             
-      - name: Build
+      - name: Build Font-end
         run: |
-          ./mvnw clean verify -B -DskipTestsUI=false -DjvmArgs="-Xmx3010m -Xms301000m"
+          ./mvnw clean verify -B -DskipTests -DskipTestsUI=false
+
+      - name: Build Back-end
+        run: |
+          ./mvnw clean verify -B -Pnone
+
 
       - name: Heroku Auto Deployment
         if: ${{ !contains(github.event.head_commit.message, 'SKIP_CD') }}
