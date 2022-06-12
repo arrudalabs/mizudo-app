@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
 
@@ -36,7 +37,7 @@ public class SecurityService {
         if (foundUser == null)
             return Optional.empty();
         GeneratedPassword generatedPassword = passwordService.passwordFrom(foundUser.salt, credentials.password());
-        if (Arrays.equals(generatedPassword.hash(), foundUser.hash)) {
+        if (Objects.equals(generatedPassword.hash(), foundUser.hash)) {
             return Optional.of(new Token(generateAccessToken(foundUser, this.expiresIn), this.expiresIn));
         }
         return Optional.empty();

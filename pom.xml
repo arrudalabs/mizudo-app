@@ -9,6 +9,7 @@
     <compiler-plugin.version>3.8.1</compiler-plugin.version>
     <failsafe.useModulePath>false</failsafe.useModulePath>
     <frontend-maven-plugin.version>1.12.1</frontend-maven-plugin.version>
+    <javafaker.version>1.0.2</javafaker.version>
     <maven-resources-plugin.version>3.2.0</maven-resources-plugin.version>
     <maven.compiler.release>17</maven.compiler.release>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -17,7 +18,7 @@
     <quarkus.platform.group-id>io.quarkus.platform</quarkus.platform.group-id>
     <quarkus.platform.version>2.9.0.Final</quarkus.platform.version>
     <surefire-plugin.version>3.0.0-M5</surefire-plugin.version>
-    <javafaker.version>1.0.2</javafaker.version>
+    <testcontainers.version>1.17.1</testcontainers.version>
   </properties>
   <dependencyManagement>
     <dependencies>
@@ -69,6 +70,10 @@
     </dependency>
     <dependency>
       <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-flyway</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>io.quarkus</groupId>
       <artifactId>quarkus-junit5</artifactId>
       <scope>test</scope>
     </dependency>
@@ -86,6 +91,18 @@
       <groupId>com.github.javafaker</groupId>
       <artifactId>javafaker</artifactId>
       <version>${javafaker.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.testcontainers</groupId>
+      <artifactId>testcontainers</artifactId>
+      <version>${testcontainers.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.testcontainers</groupId>
+      <artifactId>postgresql</artifactId>
+      <version>${testcontainers.version}</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
@@ -159,6 +176,14 @@
   </build>
   <profiles>
     <profile>
+    <id>none</id>
+    <activation>
+      <property>
+        <name>none</name>
+      </property>
+    </activation>
+    </profile>
+    <profile>
       <id>Install node and yarn</id>
       <activation>
         <property>
@@ -200,9 +225,6 @@
       <activation>
         <activeByDefault>true</activeByDefault>
       </activation>
-      <properties>
-        <skipTestsUI>true</skipTestsUI>
-      </properties>
       <build>
         <plugins>
           <plugin>
@@ -256,6 +278,9 @@
           </plugin>
         </plugins>
       </build>
+      <properties>
+        <skipTestsUI>true</skipTestsUI>
+      </properties>
     </profile>
     <profile>
       <id>native</id>

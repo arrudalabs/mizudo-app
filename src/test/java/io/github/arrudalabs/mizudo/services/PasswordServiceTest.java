@@ -27,8 +27,8 @@ class PasswordServiceTest extends BaseTest {
         GeneratedPassword recoveredPassword = passwordService.passwordFrom(generatedPassword.salt(), rawPassword);
         assertGeneratedPasswordFromPasswordFromMethod(recoveredPassword);
 
-        assertArrayEquals(generatedPassword.salt(), recoveredPassword.salt(), "both methods,passwordService.newPassword() and passwordService.passwordFrom(), aren't generating the expected password's salt");
-        assertArrayEquals(generatedPassword.hash(), recoveredPassword.hash(), "both methods,passwordService.newPassword() and passwordService.passwordFrom(), aren't generating the expected password's hash");
+        assertEquals(generatedPassword.salt(), recoveredPassword.salt(), "both methods,passwordService.newPassword() and passwordService.passwordFrom(), aren't generating the expected password's salt");
+        assertEquals(generatedPassword.hash(), recoveredPassword.hash(), "both methods,passwordService.newPassword() and passwordService.passwordFrom(), aren't generating the expected password's hash");
     }
 
     private void assertGeneratedPasswordFromNewPasswordMethod(GeneratedPassword generatedPassword) {
@@ -54,7 +54,7 @@ class PasswordServiceTest extends BaseTest {
         GeneratedPassword recoveredPassword = passwordService.passwordFrom(generatedPassword.salt(), anotherRawPassword);
         assertGeneratedPasswordFromPasswordFromMethod(recoveredPassword);
 
-        assertArrayEquals(generatedPassword.salt(), recoveredPassword.salt(), "both methods,passwordService.newPassword() and passwordService.passwordFrom(), aren't generating the expected password's salt");
+        assertEquals(generatedPassword.salt(), recoveredPassword.salt(), "both methods,passwordService.newPassword() and passwordService.passwordFrom(), aren't generating the expected password's salt");
         assertThat("password's hashes from different rawPasswords must generate different hashes",
                 generatedPassword.hash(), not(equalTo(recoveredPassword.hash())));
     }

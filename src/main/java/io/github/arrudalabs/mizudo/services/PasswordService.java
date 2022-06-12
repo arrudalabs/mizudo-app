@@ -10,6 +10,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
+import java.util.Base64;
 
 @ApplicationScoped
 public class PasswordService {
@@ -36,14 +37,14 @@ public class PasswordService {
         return passwordFrom(createSalt(), rawPassword);
     }
 
-    private byte[] createSalt() {
+    private String createSalt() {
         SecureRandom secRan = new SecureRandom() ; // In Unix like systems, default constructor uses NativePRNG, seeded by securerandom.source property
         byte[] salt = new byte[this.saltLength] ;
         secRan.nextBytes(salt);
-        return salt;
+        return Base64.getEncoder().encodeToString(salt);
     }
 
-    public GeneratedPassword passwordFrom(byte[] salt, String rawPassword) {
+    public GeneratedPassword passwordFrom(String salt, String rawPassword) {
         SecretKeyFactory keyFactory = null;
         try {
             keyFactory = SecretKeyFactory.getInstance(this.algorithm);
@@ -52,7 +53,7 @@ public class PasswordService {
         }
         KeySpec keySpec = new PBEKeySpec(
                 rawPassword.toCharArray(),
-                salt,
+                Base64.getDecoder().decode(salt),
                 this.iterationCount,
                 this.passwordSize);
         byte[] hash = new byte[0];
@@ -61,6 +62,7 @@ public class PasswordService {
         } catch (InvalidKeySpecException e) {
             throw new RuntimeException(e);
         }
-        return GeneratedPassword.fromSaltAndHash(salt, hash);
+        return GeneratedPassword.fromSaltAndHash(salt,
+                Base64.getEncoder().encodeToString(hash));
     }
 }

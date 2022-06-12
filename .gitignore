@@ -43,3 +43,6 @@ nb-configuration.xml
 .DevDataBase.mv.db
 *.pem
 *key*txt
+
+#ignorando diretório utilizado pelo container
+.data/

@@ -30,13 +30,9 @@ public class User extends PanacheEntityBase {
     @Id
     public String username;
 
-    @Lob
-    @Basic
-    public byte[] salt;
+    public String salt;
 
-    @Lob
-    @Basic
-    public byte[] hash;
+    public String hash;
 
     @ElementCollection
     @CollectionTable(
