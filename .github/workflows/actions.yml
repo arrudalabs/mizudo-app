@@ -49,7 +49,7 @@ jobs:
 
       - name: Build Back-end
         run: |
-          ./mvnw clean verify -B -X -e -Pnone
+          ./mvnw clean verify -B -Pnone
       
       - name: Build Font-end
         run: |
