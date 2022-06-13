@@ -9,7 +9,7 @@ import org.eclipse.microprofile.openapi.annotations.security.*;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 
-@ApplicationPath("/resources")
+@ApplicationPath(MizudoResources.APPLICATION_PATH)
 @OpenAPIDefinition(
         info = @Info(
                 title = "Mizu-do API",
@@ -37,4 +37,5 @@ import javax.ws.rs.core.Application;
         )
 )
 public class MizudoResources extends Application {
+    public static final String APPLICATION_PATH = "/resources" ;
 }
