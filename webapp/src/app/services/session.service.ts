@@ -1,3 +1,4 @@
+import { MRoute } from './../app-routing.module';
 import { Credentials } from './../model/Credentials';
 import { MizudoService } from './mizudo.service';
 import { Token } from './../model/Token';
@@ -13,6 +14,7 @@ import {
   tap,
 } from 'rxjs';
 import { decodeJwt } from 'jose';
+import { routes } from '../app-routing.module';
 
 @Injectable({
   providedIn: 'root',
@@ -34,7 +36,23 @@ export class SessionService {
   isLogged(): Observable<boolean> {
     return this.getToken().pipe(
       switchMap((token) => {
-        return token ? of(true) : of(false);
+        return of(this.isValid(token));
+      })
+    );
+  }
+
+  private isValid(token:Token|null){
+    return !!token;
+  }
+
+  menuItems(): Observable<MRoute[]> {
+    return this.getToken().pipe(
+      map((token) => {
+        const links=routes.filter(r=>r.isMenuItem);
+        if(!this.isValid(token)){
+          return links.filter(l=>'logout'===l.path);
+        }
+        return links;
       })
     );
   }
@@ -76,7 +94,6 @@ export class SessionService {
 
   autologin(): Observable<boolean> {
     const storedData = this.storage.getItem(SessionService.TOKEN_KEY);
-
     if (!storedData) {
       return of(false);
     }

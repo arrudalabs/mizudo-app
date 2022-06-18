@@ -11,9 +11,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './components/login/login.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MenuComponent } from './components/menu/menu.component';
+import { MembersComponent } from './components/members/members.component';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, ProfileComponent],
+  declarations: [AppComponent, LoginComponent, ProfileComponent, MenuComponent, MembersComponent],
   imports: [
     BrowserModule,
     HttpClientModule,

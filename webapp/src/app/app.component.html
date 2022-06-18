@@ -1,19 +1,5 @@
 <ion-app>
-  <ion-menu side="start" menuId="mainMenu" contentId="main-content">
-    <ion-header>
-      <ion-toolbar color="warning">
-        <ion-title>Opções</ion-title>
-      </ion-toolbar>
-    </ion-header>
-    <ion-content>
-      <ion-list>
-        <ion-item button (click)="logOut()">
-          <ion-icon name="log-out-outline" slot="start"></ion-icon>
-          <ion-label>Log out</ion-label>
-        </ion-item>
-      </ion-list>
-    </ion-content>
-  </ion-menu>
+  <app-menu></app-menu>
   <div class="ion-page" id="main-content">
     <ion-router-outlet></ion-router-outlet>
   </div>

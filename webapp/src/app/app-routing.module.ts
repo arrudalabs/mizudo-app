@@ -1,28 +1,46 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { Route, RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './auth/auth.guard';
 import { LoginComponent } from './components/login/login.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { MembersComponent } from './components/members/members.component';
 
-const routes: Routes = [
+export interface MRoute extends Route {
+  isMenuItem?: boolean;
+  icon?:string;
+  label?: string;
+}
+
+export const routes: MRoute[] = [
   {
-    path:'',
+    path: '',
     pathMatch: 'full',
-    redirectTo: '/profile'
+    redirectTo: '/profile',
   },
   {
-    path:'login',
-    component: LoginComponent
+    path: 'login',
+    component: LoginComponent,
   },
   {
-    path:'profile',
+    path: 'profile',
     component: ProfileComponent,
-    canActivate:[AuthGuard]
-  }
+    canActivate: [AuthGuard],
+    label: 'My profile',
+    isMenuItem: true,
+    icon: 'person'
+  },
+  {
+    path: 'members',
+    component: MembersComponent,
+    canActivate: [AuthGuard],
+    isMenuItem: true,
+    icon: 'people-outline',
+    label: 'Members',
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
